@@ -32,6 +32,17 @@ def usuario():
         else:
             print('Digite uma opção válida')
 
+def moeda():
+    while True:
+        try:
+            valor = str(input('Digite o valor do produto: ')).strip().replace(',', '.')
+            float(valor)
+        except (ValueError):
+            print('Digite um valor correto!')
+            continue
+        else:
+            return float(valor)
+
 #####GERENTE#####
 def apresentacao_gerente():
     print(f'{"\033[32mSeja muito bem vindo Gerente!\033[m":^48}')
@@ -62,7 +73,7 @@ def sistema_gerente():
         esc = int(input('Digite a sua escolha: '))
         linha('=', 40)
         if esc == 1:
-            pass
+            adicionando_produto()
         elif esc == 2:
             pass
         elif esc == 3:
@@ -73,5 +84,14 @@ def sistema_gerente():
             print('\033[32mSaindo do sistema! Volte Sempre!\033[m')
             linha('-', 40)
             break
+
+def adicionando_produto():
+    with open("produtos.txt", 'a') as arquivo:
+        produto = {}
+        produto['nome'] = str(input('Digite o nome do produto: '))
+        produto['preço'] = moeda()
+        produto['quantidade'] = int(input('Digite a quantidade do peoduto: '))
+        arquivo.write(f'{produto["nome"]};{produto["preço"]};{produto["quantidade"]}')
+
 #####CAIXA#####
 
