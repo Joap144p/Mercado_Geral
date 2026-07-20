@@ -11,6 +11,7 @@ def usuario():
     while True:
         print('[1] Gerente')
         print('[2] Caixa')
+        print('[3] Fechar')
         try:
             escgc = input('Digite a sua opção: ')
             int(escgc)
@@ -24,6 +25,10 @@ def usuario():
             apresentacao_gerente()
         elif escgc == 2:
             pass
+        elif escgc == 3:
+            print('Saindo do sistema!')
+            linha('-', 40)
+            break
         else:
             print('Digite uma opção válida')
 
@@ -37,6 +42,7 @@ def validacao():
         senha = str(input('Apenas precisamos validar a sua senha de acesso.\n\033[37m[Digite sair para voltar]\033[m\nDigite sua senha: ')).strip()
         if senha == 'Gerencia2389':
             print('\033[32mSenha correta\nEntrando no sistema\033[m')
+            linha('=', 40)
             sistema_gerente()
             break
         elif senha.lower() == 'sair':
@@ -44,13 +50,28 @@ def validacao():
             linha('=', 40)
             break
         else:
-            print('Senha Incorreta!')
+            print('\033[31mSenha Incorreta!\033[m')
 
 def sistema_gerente():
-    print('[1] Adicionar Produto')
-    print('[2] Modificar Produto')
-    print('[3] Modificar Quantidade de produtos')
-    print('[4] Ver produtos')
-    print('[5] Sair')
+    while True:
+        print('[1] Adicionar Produto')
+        print('[2] Modificar Produto')
+        print('[3] Modificar Quantidade de produtos')
+        print('[4] Ver produtos')
+        print('[5] Sair')
+        esc = int(input('Digite a sua escolha: '))
+        linha('=', 40)
+        if esc == 1:
+            pass
+        elif esc == 2:
+            pass
+        elif esc == 3:
+            pass
+        elif esc == 4:
+            pass
+        elif esc == 5:
+            print('\033[32mSaindo do sistema! Volte Sempre!\033[m')
+            linha('-', 40)
+            break
 #####CAIXA#####
 
