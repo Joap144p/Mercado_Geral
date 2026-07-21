@@ -52,6 +52,38 @@ def encontrar_produto(nome = ''):
                 break
         return encontrado
 
+def modificar_produto(nome = ''):
+    if encontrar_produto(nome):
+        with open('produtos.txt', 'r') as arquivo:
+            save = arquivo.readlines()
+        for indice, linhap in enumerate(save):
+            dados = linhap.strip().split(';')
+            if dados[0] == nome:
+                print(f'{"Produto":<15}{"Quantidade":<15}{"Preço"}')
+                print(f'{dados[0]:<15}{dados[2]:<15}R${dados[1].replace(".", ",")}')
+                linha('-', 40)
+                print(f'{"O que gostaria de modificar":^40}')
+                print('[1] Preço')
+                print('[2] Quantidade de Produtos')
+                while True:
+                    try:
+                        escpq = int(input('Digite a sua escolha: '))
+                    except(ValueError):
+                        print('\033[31mDigite um número válido!\033[m')
+                    else:
+                        break
+                if escpq == 1:
+                    dados[1] = str(moeda())
+                elif escpq == 2:
+                    dados[2] = str(int(input('Digite a quantidade do produto: ')))
+                else:
+                    print('Digite uma opção válida!')
+                print('Produto Atualizado com sucesso!')
+                linha('=', 40)
+                save[indice] = ';'.join(dados) + '\n'
+        with open('produtos.txt', 'w') as arquivo:
+            arquivo.writelines(save)
+
 #####GERENTE#####
 def apresentacao_gerente():
     print(f'{"\033[32mSeja muito bem vindo Gerente!\033[m":^48}')
@@ -84,7 +116,7 @@ def sistema_gerente():
         if esc == 1:
             adicionando_produto()
         elif esc == 2:
-            pass
+            modificar_produto_gerencia()
         elif esc == 3:
             pass
         elif esc == 4:
@@ -97,7 +129,7 @@ def sistema_gerente():
 def adicionando_produto():
     with open("produtos.txt", 'a') as arquivo:
         produto = {}
-        produto['nome'] = str(input('Digite o nome do produto: ')).title()
+        produto['nome'] = str(input('Digite o nome do produto: ')).strip().title()
         if not encontrar_produto(produto['nome']):
             produto['preço'] = moeda()
             produto['quantidade'] = int(input('Digite a quantidade do produto: '))
@@ -107,6 +139,14 @@ def adicionando_produto():
         else:
             print('Esse produto já foi adicionado!')
             linha('=', 40)
+
+def modificar_produto_gerencia():
+    produto = {}
+    produto['nome'] = str(input('Digite o nome do produto: ')).strip().title()
+    if encontrar_produto(produto['nome']):
+        modificar_produto(produto['nome'])
+    else:
+        print('Produto não encontrado!')
 
 #####CAIXA#####
 
