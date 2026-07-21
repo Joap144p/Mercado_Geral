@@ -43,6 +43,15 @@ def moeda():
         else:
             return float(valor)
 
+def encontrar_produto(nome = ''):
+    encontrado = False
+    with open('produtos.txt', 'r') as arquivo:
+        for linha in arquivo:
+            if linha.strip().split(';')[0] == nome:
+                encontrado = True
+                break
+        return encontrado
+
 #####GERENTE#####
 def apresentacao_gerente():
     print(f'{"\033[32mSeja muito bem vindo Gerente!\033[m":^48}')
@@ -69,7 +78,7 @@ def sistema_gerente():
         print('[2] Modificar Produto')
         print('[3] Modificar Quantidade de produtos')
         print('[4] Ver produtos')
-        print('[5] Sair')
+        print('[5] Voltar')
         esc = int(input('Digite a sua escolha: '))
         linha('=', 40)
         if esc == 1:
@@ -81,17 +90,23 @@ def sistema_gerente():
         elif esc == 4:
             pass
         elif esc == 5:
-            print('\033[32mSaindo do sistema! Volte Sempre!\033[m')
+            print('\033[32mVoltando o sistema! Volte Sempre!\033[m')
             linha('-', 40)
             break
 
 def adicionando_produto():
     with open("produtos.txt", 'a') as arquivo:
         produto = {}
-        produto['nome'] = str(input('Digite o nome do produto: '))
-        produto['preço'] = moeda()
-        produto['quantidade'] = int(input('Digite a quantidade do peoduto: '))
-        arquivo.write(f'{produto["nome"]};{produto["preço"]};{produto["quantidade"]}')
+        produto['nome'] = str(input('Digite o nome do produto: ')).title()
+        if not encontrar_produto(produto['nome']):
+            produto['preço'] = moeda()
+            produto['quantidade'] = int(input('Digite a quantidade do produto: '))
+            arquivo.write(f'{produto["nome"]};{produto["preço"]};{produto["quantidade"]}\n')
+            print('Produto Adicionado com sucesso!')
+            linha('=', 40)
+        else:
+            print('Esse produto já foi adicionado!')
+            linha('=', 40)
 
 #####CAIXA#####
 
