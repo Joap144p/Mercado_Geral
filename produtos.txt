@@ -1,3 +1,4 @@
 Arroz;25.9;12
 Feijao;3.5;10
 Farinha De Trigo;5.99;12
+Ovo;20.0;30

@@ -108,9 +108,8 @@ def sistema_gerente():
     while True:
         print('[1] Adicionar Produto')
         print('[2] Modificar Produto')
-        print('[3] Modificar Quantidade de produtos')
-        print('[4] Ver produtos')
-        print('[5] Voltar')
+        print('[3] Ver produtos')
+        print('[4] Voltar')
         esc = int(input('Digite a sua escolha: '))
         linha('=', 40)
         if esc == 1:
@@ -118,13 +117,13 @@ def sistema_gerente():
         elif esc == 2:
             modificar_produto_gerencia()
         elif esc == 3:
-            pass
+            mostrar_produtos()
         elif esc == 4:
-            pass
-        elif esc == 5:
             print('\033[32mVoltando o sistema! Volte Sempre!\033[m')
             linha('-', 40)
             break
+        else:
+            print('Digite uma opção válida!')
 
 def adicionando_produto():
     with open("produtos.txt", 'a') as arquivo:
@@ -147,6 +146,17 @@ def modificar_produto_gerencia():
         modificar_produto(produto['nome'])
     else:
         print('Produto não encontrado!')
+
+def mostrar_produtos():
+    with open('produtos.txt', 'r') as arquivo:
+        save = arquivo.readlines()
+        print(f'{"Produto":<20}{"Quantidade":<15}{"Preço"}')
+        linha('=', 40)
+        for produto in save:
+            lista_produto = produto.replace('\n', '').split(';')
+            print(f'{lista_produto[0]:<20}{lista_produto[2]:<15}\033[32mR${lista_produto[1].replace('.', ',')}\033[m')
+            linha('-', 20)
+        linha('=', 40)
 
 #####CAIXA#####
 
