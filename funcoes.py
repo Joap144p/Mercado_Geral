@@ -24,7 +24,7 @@ def usuario():
         if escgc == 1:
             apresentacao_gerente()
         elif escgc == 2:
-            pass
+            apresentacao_caixa()
         elif escgc == 3:
             print('Saindo do sistema!')
             linha('-', 40)
@@ -154,9 +154,47 @@ def mostrar_produtos():
         linha('=', 40)
         for produto in save:
             lista_produto = produto.replace('\n', '').split(';')
-            print(f'{lista_produto[0]:<20}{lista_produto[2]:<15}\033[32mR${lista_produto[1].replace('.', ',')}\033[m')
+            print(f'{lista_produto[0]:<24}{lista_produto[2]:<10}\033[32mR${lista_produto[1].replace('.', ',')}\033[m')
             linha('-', 20)
         linha('=', 40)
 
 #####CAIXA#####
+def apresentacao_caixa():
+    print(f'{"\033[34mSeja Muito Bem Vindo Caixa\033[m":^48}')
+    validacao_caixa()
 
+def validacao_caixa():
+    while True:
+        senha = str(input('Apenas precisamos validar a sua senha de acesso\n\033[37m[Digite sair para voltar]\033[m\nDigite a sua senha: ')).strip()
+        if senha == 'Caixa2389':
+            print('\033[32mSeja super bem vindo!\nVamos trabalhar!\033[m')
+            linha('=', 40)
+            sistema_caixa()
+            break
+        elif senha.lower() == 'sair':
+            print('Voltando!')
+            linha('=', 40)
+            break
+        else:
+            print('\033[31mSenha incorreta!\033[m')
+
+def sistema_caixa():
+    while True:
+        print('[1] Passar Compra')
+        print('[2] Consultar Preço')
+        print('[3] Sair')
+        try:
+            escc = int(input('Digite a sua escolha: '))
+            linha('=', 40)
+        except (ValueError):
+            print('\033[31mDigite um valor válido!\033[m')
+        if escc == 1:
+            print('Você escolheu a opção 1')
+        elif escc == 2:
+            print('Você escolheu a opção 2')
+        elif escc == 3:
+            print('Voltando!')
+            linha('=', 40)
+            break
+        else:
+            print('Digite uma opção válida!')
